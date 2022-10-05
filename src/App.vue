@@ -6,8 +6,10 @@
       :questionAnswered="questionAnswered" 
       @chooseAnswer="chooseAnswer"
     />
-    <result-section v-else :result="result" />
-    <button type="button" class="reset-btn" @click.prevent="resetToDefault">Reset</button>
+    <template v-else>
+      <result-section  :result="result" />
+      <button type="button" class="reset-btn" @click.prevent="resetToDefault">Reset</button>
+    </template>
   </div>
 </template>
 
