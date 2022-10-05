@@ -1,6 +1,11 @@
 <template>
   <div class="ctr">
-    <question-list v-if="questionAnswered < questions.length" :questions=questions />
+    <question-list 
+      v-if="questionAnswered < questions.length" 
+      :questions="questions" 
+      :questionAnswered="questionAnswered" 
+      @chooseAnswer="chooseAnswer"
+    />
     <result-section v-else/>
     <button type="button" class="reset-btn">Reset</button>
   </div>
@@ -97,6 +102,15 @@ export default {
         questions: defaultQuestions,
         results: defaultResults,
         questionAnswered: 0,
+        correntAnswers: 0,
+    }
+  },
+  methods: {
+    chooseAnswer(isCorrent) {
+      this.questionAnswered++;
+      if (isCorrent) {
+        this.correntAnswers++;
+      }
     }
   }
 };
