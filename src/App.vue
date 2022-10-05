@@ -6,8 +6,8 @@
       :questionAnswered="questionAnswered" 
       @chooseAnswer="chooseAnswer"
     />
-    <result-section v-else/>
-    <button type="button" class="reset-btn">Reset</button>
+    <result-section v-else :result="result" />
+    <button type="button" class="reset-btn" @click.prevent="resetToDefault">Reset</button>
   </div>
 </template>
 
@@ -82,13 +82,13 @@ const defaultResults = [
     min: 0,
     max: 2,
     title: "Try again!",
-    desc: "Do a little more studying and you may succeed!"
+    description: "Do a little more studying and you may succeed!"
   },
   {
     min: 3,
     max: 3,
     title: "Wow, you're a genius!",
-    desc: "Studying has definitely paid off for you!"
+    description: "Studying has definitely paid off for you!"
   }
 ];
 
@@ -105,12 +105,21 @@ export default {
         correntAnswers: 0,
     }
   },
+  computed: {
+    result() {
+      return this.results.find(result => this.correntAnswers >= result.min && this.correntAnswers <= result.max)
+    }
+  },
   methods: {
     chooseAnswer(isCorrent) {
       this.questionAnswered++;
       if (isCorrent) {
         this.correntAnswers++;
       }
+    },
+    resetToDefault() {
+      this.questionAnswered = 0;
+      this.correntAnswers = 0
     }
   }
 };

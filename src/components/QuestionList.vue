@@ -7,7 +7,7 @@
         <div class="single-question" v-for="(question, questionIndex) in questions" :key="question.q"
             v-show="questionAnswered === questionIndex">
             <div class="question">{{ question.q }}</div>
-            <div class="answers" v-for="answer in question.answers" :key="answer.text" @click.prevent="chooseAnswer(answer.is_corrent)">
+            <div class="answers" v-for="answer in question.answers" :key="answer.text" @click.prevent="chooseAnswer(answer.is_correct)">
                 <div class="answer">{{ answer.text }}</div>
             </div>
         </div>
@@ -20,6 +20,7 @@ export default {
     emit: ['chooseAnswer'],
     methods: {
         chooseAnswer(isCorrent) {
+            console.log(isCorrent)
             this.$emit('chooseAnswer', isCorrent)
         }
     }
