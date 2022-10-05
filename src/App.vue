@@ -1,15 +1,12 @@
 <template>
   <div class="ctr">
-    <question-list 
-      v-if="questionAnswered < questions.length" 
-      :questions="questions" 
-      :questionAnswered="questionAnswered" 
-      @chooseAnswer="chooseAnswer"
-    />
-    <template v-else>
-      <result-section  :result="result" />
-      <button type="button" class="reset-btn" @click.prevent="resetToDefault">Reset</button>
-    </template>
+    <transition name="fade" mode="out-in">
+      <question-list v-if="questionAnswered < questions.length" :questions="questions"
+        :questionAnswered="questionAnswered" @chooseAnswer="chooseAnswer" />
+      <result-section v-else :result="result" />
+    </transition>
+    <button v-if="questionAnswered === questions.length" type="button" class="reset-btn"
+      @click.prevent="resetToDefault">Reset</button>
   </div>
 </template>
 
@@ -101,10 +98,10 @@ export default {
   },
   data() {
     return {
-        questions: defaultQuestions,
-        results: defaultResults,
-        questionAnswered: 0,
-        correntAnswers: 0,
+      questions: defaultQuestions,
+      results: defaultResults,
+      questionAnswered: 0,
+      correntAnswers: 0,
     }
   },
   computed: {
