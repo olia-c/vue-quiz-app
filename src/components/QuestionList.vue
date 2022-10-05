@@ -1,8 +1,8 @@
 <template>
     <div class="questions-ctr">
         <div class="progress">
-            <div class="bar"></div>
-            <div class="status">{{ questionAnswered + 1 }} out of {{ questions.length }} questions answered</div>
+            <div class="bar" :style="style"></div>
+            <div class="status">{{ questionAnswered }} out of {{ questions.length }} questions answered</div>
         </div>
         <div class="single-question" v-for="(question, questionIndex) in questions" :key="question.q"
             v-show="questionAnswered === questionIndex">
@@ -20,8 +20,14 @@ export default {
     emit: ['chooseAnswer'],
     methods: {
         chooseAnswer(isCorrent) {
-            console.log(isCorrent)
             this.$emit('chooseAnswer', isCorrent)
+        }
+    }, 
+    computed: {
+        style() {
+            return {
+                width: this.questionAnswered/this.questions.length*100 + '%'
+            }
         }
     }
 }
